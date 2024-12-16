@@ -14,15 +14,15 @@ class LivroSchema(BaseModel):
 
 
 class LivroBuscaSchema(BaseModel):
-    """ Define como deve ser a estrutura que representa a busca, com base no nome do livro.
+    """ Define como deve ser a estrutura da busca com base no nome do livro.
     """
-    nome: str = " "
+    nome: str = "Orgulho e Preconceito"
    
 
 class AutorBuscaSchema(BaseModel):
-    """ Define como deve ser a estrutura que representa a busca, com base no autor do livro.
+    """ Define como deve ser a estrutura da busca com base no autor do livro.
     """
-    autor: str = " "   
+    autor: str = "Jane Austen"
 
 
 class ListagemLivrosSchema(BaseModel):
