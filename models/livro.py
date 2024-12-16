@@ -18,12 +18,7 @@ class Livro(Base):
     def __init__(self, nome:str, autor:str, genero:str, status: str):
         """
         Cadastra um livro no banco de dados.
-
-        Argumentos:
-            nome: Nome do livro
-            autor: Autor do livro
-            genero: Gênero do livro
-            status: Status de Leitura do livro
+        
         """
         self.nome = nome
         self.autor = autor
