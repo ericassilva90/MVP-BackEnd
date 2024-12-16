@@ -14,7 +14,7 @@ CORS(app)
 
 # Definindo as tags que separam as categorias
 home_tag = Tag(name="Documentação", description="Seleção de documentação")
-livro_tag = Tag(name="Livro", description="Adição, visualização e remoção de livros à base de dados")
+livro_tag = Tag(name="Livros", description="Adição, visualização e remoção de livros à base de dados")
 
 
 @app.get('/', tags=[home_tag])
@@ -24,12 +24,10 @@ def home():
     return redirect('/openapi')
 
 
-@app.post('/livro', tags=[livro_tag],
+@app.post('/adicionar_livro', tags=[livro_tag],
           responses={"200": LivroViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_produto(form: LivroSchema):
     """Adiciona um novo Livro à base de dados.
-
-    Retorna uma representação dos livros.
     """
     livro = Livro(
         nome=form.nome,
@@ -56,12 +54,10 @@ def add_produto(form: LivroSchema):
         return {"message": error_msg}, 400
 
 
-@app.get('/livros', tags=[livro_tag],
+@app.get('/lista_livros', tags=[livro_tag],
          responses={"200": ListagemLivrosSchema, "404": ErrorSchema})
 def get_livros():
     """Faz a busca por todos os Livros cadastrados.
-
-    Retorna uma representação da listagem dos livros.
     """
     
     # criando conexão com a base
@@ -78,12 +74,10 @@ def get_livros():
         return apresenta_livros(livros), 200
 
 
-@app.get('/livro', tags=[livro_tag],
+@app.get('/busca_livro', tags=[livro_tag],
          responses={"200": LivroViewSchema, "404": ErrorSchema})
 def get_livro(query: LivroBuscaSchema):
     """Faz a busca a partir do nome do livro.
-
-    Retorna uma representação dos livros.
     """
     livro_nome = query.nome
     
@@ -105,7 +99,7 @@ def get_livro(query: LivroBuscaSchema):
 
 
 
-@app.get('/autor', tags=[livro_tag],
+@app.get('/busca_autor', tags=[livro_tag],
           responses={"200": LivroViewSchema, "404": ErrorSchema})
 def get_autor(query: AutorBuscaSchema):
 
@@ -128,7 +122,7 @@ def get_autor(query: AutorBuscaSchema):
     
 
 
-@app.delete('/livro', tags=[livro_tag],
+@app.delete('/deletar_livro', tags=[livro_tag],
             responses={"200": LivroDeleteSchema, "404": ErrorSchema})
 def del_livro(query: LivroBuscaSchema):
     """Deleta um Livro a partir do nome informado.
